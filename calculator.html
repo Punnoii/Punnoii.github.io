@@ -7,22 +7,22 @@
       body {
         height: 100%;
         margin: 0;
-        font-family: fnt;
+        font-family: Arial, sans-serif;
         font-size: 2vw;
       }
       input {
         width: 60%;
         height: 60%;
         font-size: 2vw;
-        font-family: fnt;
+        font-family: Arial, sans-serif;
       }
       button {
         width: 80%;
         height: 100%;
         font-size: 2vw;
-        font-family: fnt;
+        font-family: Arial, sans-serif;
       }
-      .button {
+      .calculate_button {
         display: inline-block;
         cursor: pointer;
         text-align: center;
@@ -35,16 +35,16 @@
         box-shadow: 0 5px #999;
       }
 
-      .button:hover {
+      .calculate_button:hover {
         background-color: #3e8e41;
       }
 
-      .button:active {
+      .calculate_button:active {
         background-color: #3e8e41;
         box-shadow: 0 5px #666;
         transform: translateY(4px);
       }
-      .button2 {
+      .reset_button {
         display: inline-block;
         cursor: pointer;
         text-align: center;
@@ -58,138 +58,49 @@
         width: 50%;
       }
 
-      .button2:hover {
+      .reset_button:hover {
         background-color: #880808;
       }
 
-      .button2:active {
+      .reset_button:active {
         background-color: #880808;
         box-shadow: 0 5px #666;
         transform: translateY(4px);
       }
-      @font-face {
-        font-family: fnt;
-        src: url(ShipporiAntiqueB1-Regular.ttf);
-      }
+
       table {
-        font-family: fnt;
+        font-family: Arial, sans-serif;
       }
     </style>
     <title>Mission Challenge WRGTH2025 Calculator</title>
-    <script>
-      function calculate() {
-        document.getElementById("linesum").innerHTML = (
-          parseInt(document.getElementById("linenumber").value) * 50
-        ).toString();
-
-        document.getElementById("wallsum").innerHTML = (
-          parseInt(document.getElementById("wallnumber").value) * 50
-        ).toString();
-
-        document.getElementById("entersum").innerHTML = (
-          parseInt(document.getElementById("enternumber").value) * 10
-        ).toString();
-
-        document.getElementById("redsum").innerHTML = (
-          parseInt(document.getElementById("rednumber").value) * 20
-        ).toString();
-
-        document.getElementById("greensum").innerHTML = (
-          parseInt(document.getElementById("greennumber").value) * 5
-        ).toString();
-
-        document.getElementById("yellowsum").innerHTML = (
-          parseInt(document.getElementById("yellownumber").value) * 5
-        ).toString();
-
-        document.getElementById("bluesum").innerHTML = (
-          parseInt(document.getElementById("bluenumber").value) * 1
-        ).toString();
-
-        document.getElementById("exitsum").innerHTML = (
-          parseInt(document.getElementById("exitnumber").value) * 10
-        ).toString();
-        document.getElementById("bingosum").innerHTML = (
-          parseInt(document.getElementById("bingonumber").value) * 100
-        ).toString();
-        document.getElementById("superbingosum").innerHTML = (
-          parseInt(document.getElementById("superbingonumber").value) * 100
-        ).toString();
-        let bingosumint =
-          parseInt(document.getElementById("bingonumber").value) * 100;
-        let superbingosumint =
-          parseInt(document.getElementById("superbingonumber").value) * 100;
-        let threezone_sum =
-          parseInt(document.getElementById("linenumber").value) * 50 +
-          parseInt(document.getElementById("wallnumber").value) * 50 +
-          parseInt(document.getElementById("enternumber").value) * 10 +
-          parseInt(document.getElementById("rednumber").value) * 20 +
-          parseInt(document.getElementById("greennumber").value) * 5 +
-          parseInt(document.getElementById("yellownumber").value) * 5 +
-          parseInt(document.getElementById("bluenumber").value) * 1 +
-          parseInt(document.getElementById("exitnumber").value) * 10;
-
-        let totalsumint = threezone_sum + bingosumint + superbingosumint;
-        document.getElementById("totalsum").innerHTML = totalsumint.toString();
-      }
-      function reset_score() {
-        document.getElementById("linenumber").value = "0";
-        document.getElementById("wallnumber").value = "0";
-        document.getElementById("enternumber").value = "0";
-        document.getElementById("rednumber").value = "0";
-        document.getElementById("greennumber").value = "0";
-        document.getElementById("yellownumber").value = "0";
-        document.getElementById("bluenumber").value = "0";
-        document.getElementById("exitnumber").value = "0";
-        document.getElementById("bingonumber").value = "0";
-        document.getElementById("superbingonumber").value = "0";
-        document.getElementById("linesum").innerHTML = (
-          parseInt(document.getElementById("linenumber").value) * 50
-        ).toString();
-
-        document.getElementById("wallsum").innerHTML = (
-          parseInt(document.getElementById("wallnumber").value) * 50
-        ).toString();
-
-        document.getElementById("entersum").innerHTML = (
-          parseInt(document.getElementById("enternumber").value) * 10
-        ).toString();
-
-        document.getElementById("redsum").innerHTML = (
-          parseInt(document.getElementById("rednumber").value) * 20
-        ).toString();
-
-        document.getElementById("greensum").innerHTML = (
-          parseInt(document.getElementById("greennumber").value) * 5
-        ).toString();
-
-        document.getElementById("yellowsum").innerHTML = (
-          parseInt(document.getElementById("yellownumber").value) * 5
-        ).toString();
-
-        document.getElementById("bluesum").innerHTML = (
-          parseInt(document.getElementById("bluenumber").value) * 1
-        ).toString();
-
-        document.getElementById("exitsum").innerHTML = (
-          parseInt(document.getElementById("exitnumber").value) * 10
-        ).toString();
-
-        document.getElementById("bingosum").innerHTML = (
-          parseInt(document.getElementById("bingonumber").value) * 100
-        ).toString();
-        document.getElementById("superbingosum").innerHTML = (
-          parseInt(document.getElementById("superbingonumber").value) * 100
-        ).toString();
-
-        document.getElementById("totalsum").innerHTML = "0";
-      }
-    </script>
   </head>
 
   <body>
     <table width="100%" height="100%" border="2" cellpadding="1">
       <tbody>
+        <tr>
+          <td colspan="2">&nbsp;<b>ID</b></td>
+          <td>
+            &nbsp;<input
+              type="text"
+              name="text"
+              id="teamID"
+              value=""
+              placeholder="enter ID"
+            />&nbsp;
+          </td>
+          <td colspan="1">&nbsp;<b>ATTEMPT</b></td>
+          <td>
+            &nbsp;<input
+              type="number"
+              name="number"
+              id="attempt"
+              value="0"
+              min="0"
+            />&nbsp;
+          </td>
+        </tr>
+
         <tr>
           <td width="20%" bgcolor="black" style="color: white">&nbsp;ZONE</td>
           <td width="20%" bgcolor="black" style="color: white">
@@ -199,14 +110,14 @@
           <td width="20%" bgcolor="black" style="color: white">&nbsp;FACTOR</td>
           <td width="25%" bgcolor="black" style="color: white">&nbsp;SUM</td>
         </tr>
+
         <tr>
-          <td bgcolor="#398F87" style="color: white">&nbsp;LINE</td>
-          <td>&nbsp;</td>
+          <td colspan="2" bgcolor="#398F87" style="color: white">&nbsp;LINE</td>
           <td>
             &nbsp;<input
               type="number"
               name="number"
-              id="linenumber"
+              id="linePassed"
               value="0"
               min="0"
             />&nbsp;tms
@@ -214,14 +125,14 @@
           <td>&nbsp; × 50 =</td>
           <td>&nbsp;<b id="linesum">0</b></td>
         </tr>
+
         <tr>
-          <td bgcolor="#398F87" style="color: white">&nbsp;WALL</td>
-          <td>&nbsp;</td>
+          <td colspan="2" bgcolor="#398F87" style="color: white">&nbsp;WALL</td>
           <td>
             &nbsp;<input
               type="number"
               name="number"
-              id="wallnumber"
+              id="wallPassed"
               value="0"
               min="0"
             />&nbsp;tms
@@ -230,13 +141,13 @@
           <td>&nbsp;<b id="wallsum">0</b></td>
         </tr>
         <tr>
-          <td bgcolor="#398F87" style="color: white">&nbsp;BALL</td>
+          <td rowspan="6" bgcolor="#398F87" style="color: white">&nbsp;BALL</td>
           <td bgcolor="#398F87" style="color: white">&nbsp;ENTER</td>
           <td>
             &nbsp;<input
               type="number"
               name="number"
-              id="enternumber"
+              id="enterPassed"
               value="0"
               min="0"
             />&nbsp;tms
@@ -245,73 +156,73 @@
           <td>&nbsp;<b id="entersum">0</b></td>
         </tr>
         <tr>
-          <td>&nbsp;</td>
           <td bgcolor="#c30010" style="color: white">&nbsp;RED</td>
           <td>
             &nbsp;<input
               type="number"
               name="number"
-              id="rednumber"
+              id="redCount"
               value="0"
               min="0"
+              max="2"
             />&nbsp;pcs
           </td>
           <td>&nbsp; × 20 =</td>
           <td>&nbsp;<b id="redsum" style="color: red">0</b></td>
         </tr>
+
         <tr>
-          <td>&nbsp;</td>
           <td bgcolor="green" style="color: white">&nbsp;GREEN</td>
           <td>
             &nbsp;<input
               type="number"
               name="number"
-              id="greennumber"
+              id="greenCount"
               value="0"
               min="0"
+              max="4"
             />&nbsp;pcs
           </td>
           <td>&nbsp; × 5 =</td>
           <td>&nbsp;<b id="greensum" style="color: green">0</b></td>
         </tr>
         <tr>
-          <td>&nbsp;</td>
           <td bgcolor="#E3FF37" style="color: #0015a9">&nbsp;YELLOW</td>
           <td>
             &nbsp;<input
               type="number"
               name="number"
-              id="yellownumber"
+              id="yellowCount"
               value="0"
               min="0"
+              max="4"
             />&nbsp;pcs
           </td>
           <td>&nbsp; × 5 =</td>
           <td>&nbsp;<b id="yellowsum" style="color: #7d7c00">0</b></td>
         </tr>
         <tr>
-          <td>&nbsp;</td>
           <td bgcolor="#0015A9" style="color: white">&nbsp;BLUE</td>
           <td>
             &nbsp;<input
               type="number"
               name="number"
-              id="bluenumber"
+              id="blueCount"
               value="0"
               min="0"
+              max="10"
             />&nbsp;pcs
           </td>
           <td>&nbsp; × 1 =</td>
           <td>&nbsp;<b id="bluesum" style="color: blue">0</b></td>
         </tr>
         <tr>
-          <td>&nbsp;</td>
           <td bgcolor="#398F87" style="color: white">&nbsp;EXIT</td>
           <td>
             &nbsp;<input
               type="number"
               name="number"
-              id="exitnumber"
+              id="exitPassed"
               value="0"
               min="0"
             />&nbsp;tms
@@ -319,14 +230,16 @@
           <td>&nbsp; × 10 =</td>
           <td>&nbsp;<b id="exitsum">0</b></td>
         </tr>
+
         <tr>
-          <td bgcolor="#398F87" style="color: white">&nbsp;BINGO</td>
-          <td>&nbsp;</td>
+          <td colspan="2" bgcolor="#398F87" style="color: white">
+            &nbsp;BINGO
+          </td>
           <td>
             &nbsp;<input
               type="number"
               name="number"
-              id="bingonumber"
+              id="bingoBonus"
               value="0"
               min="0"
             />&nbsp;tms
@@ -334,20 +247,37 @@
           <td>&nbsp; × 100 =</td>
           <td>&nbsp;<b id="bingosum">0</b></td>
         </tr>
+
         <tr>
-          <td bgcolor="#398F87" style="color: white">&nbsp;SUPERBINGO</td>
-          <td>&nbsp;</td>
+          <td colspan="2" bgcolor="#398F87" style="color: white">
+            &nbsp;SUPERBINGO
+          </td>
           <td>
             &nbsp;<input
               type="number"
               name="number"
-              id="superbingonumber"
+              id="superbingoBonus"
               value="0"
               min="0"
             />&nbsp;tms
           </td>
           <td>&nbsp; × 100 =</td>
           <td>&nbsp;<b id="superbingosum">0</b></td>
+        </tr>
+        <tr>
+          <td>&nbsp;<b>RETRY</b></td>
+          <td>
+            &nbsp;<input
+              type="number"
+              name="retry"
+              id="retry"
+              value="0"
+              min="0"
+            />&nbsp;
+          </td>
+          <td>&nbsp;</td>
+          <td>&nbsp;<b>TOTAL</b></td>
+          <td>&nbsp;<b id="totalsum">0</b></td>
         </tr>
         <tr>
           <td>&nbsp;<b>TIME</b></td>
@@ -360,32 +290,204 @@
               min="0"
             />&nbsp;sec
           </td>
-          <td>&nbsp;</td>
-          <td>&nbsp;<b>TOTAL</b></td>
-          <td>&nbsp;<b id="totalsum">0</b></td>
-        </tr>
-        <tr>
-          <td>&nbsp;<b>RETRY</b></td>
-          <td>&nbsp;<input
-              type="number"
-              name="retry"
-              id="retry"
-              value="0"
-              min="0"
-            />&nbsp;</td>
+
           <td>
-            &nbsp;<button class="button2" type="button" onclick="reset_score()">
+            &nbsp;<button
+              class="reset_button"
+              type="button"
+              onclick="reset_score()"
+            >
               Reset
             </button>
           </td>
-          <td>
-            &nbsp;<button class="button" type="button" onclick="calculate()">
-              Calculate
+
+          <td colspan="2">
+            &nbsp;<button class="button" type="button" onclick="save()">
+              Save
             </button>
           </td>
-          <td>&nbsp;</td>
         </tr>
       </tbody>
     </table>
+
+    <script>
+      // calculate
+      function calculateAuto() {
+        // calculate each mission
+        const lineValue =
+          parseInt(document.getElementById("linePassed").value) || 0;
+        document.getElementById("linesum").innerHTML = (
+          lineValue * 50
+        ).toString();
+
+        const wallValue =
+          parseInt(document.getElementById("wallPassed").value) || 0;
+        document.getElementById("wallsum").innerHTML = (
+          wallValue * 50
+        ).toString();
+
+        const enterValue =
+          parseInt(document.getElementById("enterPassed").value) || 0;
+        document.getElementById("entersum").innerHTML = (
+          enterValue * 10
+        ).toString();
+
+        const redValue =
+          parseInt(document.getElementById("redCount").value) || 0;
+        document.getElementById("redsum").innerHTML = (
+          redValue * 20
+        ).toString();
+
+        const greenValue =
+          parseInt(document.getElementById("greenCount").value) || 0;
+        document.getElementById("greensum").innerHTML = (
+          greenValue * 5
+        ).toString();
+
+        const yellowValue =
+          parseInt(document.getElementById("yellowCount").value) || 0;
+        document.getElementById("yellowsum").innerHTML = (
+          yellowValue * 5
+        ).toString();
+
+        const blueValue =
+          parseInt(document.getElementById("blueCount").value) || 0;
+        document.getElementById("bluesum").innerHTML = (
+          blueValue * 1
+        ).toString();
+
+        const exitValue =
+          parseInt(document.getElementById("exitPassed").value) || 0;
+        document.getElementById("exitsum").innerHTML = (
+          exitValue * 10
+        ).toString();
+
+        const bingoValue =
+          parseInt(document.getElementById("bingoBonus").value) || 0;
+        document.getElementById("bingosum").innerHTML = (
+          bingoValue * 100
+        ).toString();
+
+        const superBingoValue =
+          parseInt(document.getElementById("superbingoBonus").value) || 0;
+        document.getElementById("superbingosum").innerHTML = (
+          superBingoValue * 100
+        ).toString();
+
+        // คำนวณคะแนนรวม
+        const totalSum =
+          lineValue * 50 +
+          wallValue * 50 +
+          enterValue * 10 +
+          redValue * 20 +
+          greenValue * 5 +
+          yellowValue * 5 +
+          blueValue * 1 +
+          exitValue * 10 +
+          bingoValue * 100 +
+          superBingoValue * 100;
+
+        document.getElementById("totalsum").innerHTML = totalSum.toString();
+      }
+
+      // เพิ่ม event listener ให้กับ input ทุกตัว
+      function addEventListeners() {
+        const inputs = [
+          "linePassed",
+          "wallPassed",
+          "enterPassed",
+          "redCount",
+          "greenCount",
+          "yellowCount",
+          "blueCount",
+          "exitPassed",
+          "bingoBonus",
+          "superbingoBonus",
+        ];
+
+        inputs.forEach((inputId) => {
+          const input = document.getElementById(inputId);
+          input.addEventListener("input", calculateAuto);
+          input.addEventListener("change", calculateAuto);
+        });
+      }
+
+      // ฟังก์ชัน reset
+      function reset_score() {
+        const inputs = [
+          "linePassed",
+          "wallPassed",
+          "enterPassed",
+          "redCount",
+          "greenCount",
+          "yellowCount",
+          "blueCount",
+          "exitPassed",
+          "bingoBonus",
+          "superbingoBonus",
+          "retry",
+          "time",
+        ];
+
+        inputs.forEach((inputId) => {
+          document.getElementById(inputId).value = "0";
+        });
+
+        const sums = [
+          "linesum",
+          "wallsum",
+          "entersum",
+          "redsum",
+          "greensum",
+          "yellowsum",
+          "bluesum",
+          "exitsum",
+          "bingosum",
+          "superbingosum",
+          "totalsum",
+        ];
+
+        sums.forEach((sumId) => {
+          document.getElementById(sumId).innerHTML = "0";
+        });
+
+        document.getElementById("teamID").value = "";
+      }
+      // save function
+      function save() {
+        const teamID = document.getElementById("teamID").value;
+        if (!teamID) {
+          alert("กรุณาใส่ Team ID ก่อนบันทึก");
+          return;
+        }
+
+        const data = {
+          teamID: teamID,
+          attempt: document.getElementById("attempt").value,
+          linePassed: document.getElementById("linePassed").value,
+          wallPassed: document.getElementById("wallPassed").value,
+          enterPassed: document.getElementById("enterPassed").value,
+          redCount: document.getElementById("redCount").value,
+          greenCount: document.getElementById("greenCount").value,
+          yellowCount: document.getElementById("yellowCount").value,
+          blueCount: document.getElementById("blueCount").value,
+          exitPassed: document.getElementById("exitPassed").value,
+          bingoBonus: document.getElementById("bingoBonus").value,
+          superbingoBonus: document.getElementById("superbingoBonus").value,
+          retry: document.getElementById("retry").value,
+          time: document.getElementById("time").value,
+          totalScore: document.getElementById("totalsum").innerHTML,
+        };
+
+        localStorage.setItem(teamID, JSON.stringify(data));
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว!");
+      }
+
+      // เรียกใช้เมื่อหน้าเว็บโหลดเสร็จ
+      document.addEventListener("DOMContentLoaded", function () {
+        addEventListeners();
+        calculateAuto(); // คำนวณครั้งแรก
+      });
+    </script>
   </body>
 </html>
