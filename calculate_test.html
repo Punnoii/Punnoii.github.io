@@ -71,6 +71,23 @@
       table {
         font-family: Arial, sans-serif;
       }
+
+      /* เพิ่ม style สำหรับ data display */
+      .saved-data {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        font-size: 1.5vw;
+      }
+      
+      .saved-item {
+        background-color: white;
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 3px;
+        border-left: 4px solid #04aa6d;
+      }
     </style>
     <title>Mission Challenge WRGTH2025 Calculator</title>
   </head>
@@ -164,6 +181,7 @@
               id="redCount"
               value="0"
               min="0"
+              max="2"
             />&nbsp;pcs
           </td>
           <td>&nbsp; × 20 =</td>
@@ -179,6 +197,7 @@
               id="greenCount"
               value="0"
               min="0"
+              max="4"
             />&nbsp;pcs
           </td>
           <td>&nbsp; × 5 =</td>
@@ -193,6 +212,7 @@
               id="yellowCount"
               value="0"
               min="0"
+              max="4"
             />&nbsp;pcs
           </td>
           <td>&nbsp; × 5 =</td>
@@ -207,6 +227,7 @@
               id="blueCount"
               value="0"
               min="0"
+              max="10"
             />&nbsp;pcs
           </td>
           <td>&nbsp; × 1 =</td>
@@ -298,15 +319,36 @@
           </td>
 
           <td colspan="2">
-            &nbsp;<button class="button" type="button" onclick="save()">
+            &nbsp;<button class="calculate_button" type="button" onclick="save()">
               Save
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <button class="calculate_button" type="button" onclick="showSavedData()" style="width: 45%; margin: 5px;">
+              Show Saved Data
+            </button>
+            <button class="reset_button" type="button" onclick="clearAllData()" style="width: 45%; margin: 5px;">
+              Clear All Data
             </button>
           </td>
         </tr>
       </tbody>
     </table>
 
+    <!-- แสดงข้อมูลที่บันทึกไว้ -->
+    <div id="savedDataDisplay" class="saved-data">
+      <h3>ข้อมูลที่บันทึกไว้:</h3>
+      <div id="savedDataContent">
+        <p style="color: #666;">กดปุ่ม "Show Saved Data" เพื่อดูข้อมูล</p>
+      </div>
+    </div>
+
     <script>
+      // ใช้ Memory Storage แทน localStorage (เพื่อให้ทำงานใน Claude)
+      let memoryStorage = {};
+
       // calculate
       function calculateAuto() {
         // calculate each mission
@@ -449,7 +491,8 @@
 
         document.getElementById("teamID").value = "";
       }
-      // save function
+
+      // save function (ปรับให้ใช้ memory storage)
       function save() {
         const teamID = document.getElementById("teamID").value;
         if (!teamID) {
@@ -473,10 +516,108 @@
           retry: document.getElementById("retry").value,
           time: document.getElementById("time").value,
           totalScore: document.getElementById("totalsum").innerHTML,
+          timestamp: new Date().toLocaleString()
         };
 
-        localStorage.setItem(teamID, JSON.stringify(data));
+        // บันทึกใน memory storage
+        memoryStorage[teamID] = data;
+        
+        // พยายามบันทึกใน localStorage ถ้าใช้งานได้ (สำหรับเบราว์เซอร์จริง)
+        try {
+          localStorage.setItem(teamID, JSON.stringify(data));
+        } catch (e) {
+          console.log("localStorage ไม่พร้อมใช้งาน ใช้ memory storage แทน");
+        }
+
         alert("บันทึกข้อมูลเรียบร้อยแล้ว!");
+      }
+
+      // แสดงข้อมูลที่บันทึกไว้
+      function showSavedData() {
+        console.log("showSavedData called");
+        console.log("memoryStorage:", memoryStorage);
+        
+        const display = document.getElementById("savedDataDisplay");
+        const content = document.getElementById("savedDataContent");
+        
+        // รวมข้อมูลจาก memory storage และ localStorage
+        let allData = {...memoryStorage};
+        
+        try {
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            try {
+              const data = JSON.parse(localStorage.getItem(key));
+              if (data && data.teamID && data.totalScore !== undefined) {
+                allData[key] = data;
+              }
+            } catch (e) {
+              continue;
+            }
+          }
+        } catch (e) {
+          console.log("ไม่สามารถเข้าถึง localStorage ได้");
+        }
+
+        console.log("allData:", allData);
+
+        if (Object.keys(allData).length === 0) {
+          content.innerHTML = "<p style='color: red; font-weight: bold;'>ไม่มีข้อมูลที่บันทึกไว้<br>กรุณาใส่ Team ID และกดปุ่ม Save ก่อน</p>";
+        } else {
+          let html = "<h4>รายการทีมที่บันทึกไว้:</h4>";
+          
+          // เรียงตามคะแนน
+          const sortedData = Object.values(allData).sort((a, b) => 
+            parseInt(b.totalScore) - parseInt(a.totalScore)
+          );
+          
+          sortedData.forEach((data, index) => {
+            html += `
+              <div class="saved-item">
+                <strong>#${index + 1} Team: ${data.teamID}</strong> - 
+                คะแนน: <strong style="color: #04aa6d;">${data.totalScore}</strong> - 
+                เวลา: ${data.time}s - 
+                Attempt: ${data.attempt}
+                ${data.timestamp ? `<br><small>บันทึกเมื่อ: ${data.timestamp}</small>` : ''}
+                <br><small>Line:${data.linePassed} Wall:${data.wallPassed} Red:${data.redCount} Green:${data.greenCount} Yellow:${data.yellowCount} Blue:${data.blueCount}</small>
+              </div>
+            `;
+          });
+          
+          content.innerHTML = html;
+        }
+        
+        // แสดงผลเสมอ
+        display.style.display = "block";
+        
+        // เลื่อนลงไปดู
+        display.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // ลบข้อมูลทั้งหมด
+      function clearAllData() {
+        if (confirm("ต้องการลบข้อมูลทั้งหมดหรือไม่?")) {
+          memoryStorage = {};
+          
+          try {
+            // ลบจาก localStorage
+            Object.keys(localStorage).forEach(key => {
+              try {
+                const data = JSON.parse(localStorage.getItem(key));
+                if (data && data.teamID && data.totalScore !== undefined) {
+                  localStorage.removeItem(key);
+                }
+              } catch (e) {
+                // ข้าม
+              }
+            });
+          } catch (e) {
+            console.log("ไม่สามารถเข้าถึง localStorage ได้");
+          }
+          
+          document.getElementById("savedDataDisplay").style.display = "none";
+          alert("ลบข้อมูลทั้งหมดเรียบร้อยแล้ว");
+        }
       }
 
       // เรียกใช้เมื่อหน้าเว็บโหลดเสร็จ
